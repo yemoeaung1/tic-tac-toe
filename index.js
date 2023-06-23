@@ -16,6 +16,12 @@ const winningMessageElement = document.getElementById('winMessage');
 const restartButton = document.getElementById('restart');
 const main_container = document.getElementById('main');
 const computer = document.getElementById('computer');
+const player = document.getElementById('local-player');
+
+player.addEventListener('click', () => {
+    playWithComputer = false;
+    Game()
+    });
 
 
 computer.addEventListener('click', () => {
@@ -66,17 +72,18 @@ function computerMove() {
     let bestScore = -Infinity;
     let i = 0;
     let freeSlots = totalFreeSlots(gameBoard);
+    const currentClass = circleTurn ? O_CLASS : X_CLASS;
     console.log(freeSlots);
     while(isSquareTaken(squares[i])) {
         i = freeSlots[Math.floor(Math.random() * (freeSlots.length - 1))];
     }
     console.log(i);
     // console.log(squares[i]);
-    gameBoard[i] = O_CLASS;
+    gameBoard[i] = currentClass;
     console.log(gameBoard);
-    placeSymbol(squares[i], O_CLASS);
+    placeSymbol(squares[i], currentClass);
 
-    if(checkforWinner(O_CLASS)) {
+    if(checkforWinner(currentClass)) {
         endGame(false);
     } else if(checkForDraw()) {
         endGame(true);
